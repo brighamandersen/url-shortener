@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,21 +63,85 @@
       margin-bottom: 20px;
       color: #0066cc;
     }
+
+    .download-btn {
+      display: inline-block;
+      background-color: #28a745;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .download-btn:hover {
+      background-color: #218838;
+      color: white;
+      text-decoration: none;
+    }
+
+    .download-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-container {
+      text-align: center;
+      margin: 20px 0;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>URL Shortener - Result</h1>
-    
+
     <div class="info">
       <strong>Success!</strong> Your HTML has been processed and all URLs have been shortened.
     </div>
-    
-    <a href="/" class="action-link">Shorten another file</a>
-    
+
+    <div class="button-container">
+      <button id="downloadBtn" class="download-btn">📥 Download Processed HTML</button>
+    </div>
+
     <div class="processed-content">
       <%- processedHtml %>
     </div>
+
+    <div class="button-container">
+      <a href="/" class="action-link">Shorten another file</a>
+    </div>
   </div>
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      // Get the processed HTML content
+      const processedContent = `<%- processedHtml %>`;
+
+      // Create a blob with the HTML content
+      const blob = new Blob([processedContent], { type: 'text/html' });
+
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'processed-html.html';
+
+      // Trigger the download
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  </script>
 </body>
+
 </html>
