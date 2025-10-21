@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true })); // Needed for forms
 
-let processedHtmlContent = '';
+let processedHtmlContent = ''; // FIXME: Temproary to get things working, then need to make scalable
 
 app.get('/', (req, res) => {
   console.log('index')
