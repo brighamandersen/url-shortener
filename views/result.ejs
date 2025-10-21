@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener - Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .action-link {
+      display: block;
+      margin: 20px auto;
+      color: #007bff;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    .action-link:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .processed-content {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      background-color: #fafafa;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .info {
+      background-color: #e7f3ff;
+      border: 1px solid #b3d9ff;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #0066cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>URL Shortener - Result</h1>
+    
+    <div class="info">
+      <strong>Success!</strong> Your HTML has been processed and all URLs have been shortened.
+    </div>
+    
+    <a href="/" class="action-link">Shorten another file</a>
+    
+    <div class="processed-content">
+      <%- processedHtml %>
+    </div>
+  </div>
+</body>
+</html>
