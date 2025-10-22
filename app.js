@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3006;
 const PROD_BASE_URL = 'https://short.brighamandersen.com';
 const DEV_BASE_URL = `http://localhost:${PORT}`;
 // const baseUrl = /*process.env.NODE_ENV === 'production' ?*/ PROD_BASE_URL /*: DEV_BASE_URL*/;
-const baseUrl = DEV_BASE_URL;
+const baseUrl = PROD_BASE_URL;
 
 const upload = multer({ 
   storage: multer.memoryStorage() // Store in memory instead of disk
