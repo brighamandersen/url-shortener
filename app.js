@@ -1,8 +1,8 @@
-import express, { type Request, type Response } from 'express';
+import express from 'express';
 import path from 'path';
 import multer from 'multer';
 import { fileURLToPath } from 'url';
-import { extractUrls } from './utils';
+import { extractUrls } from './utils.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,20 +18,19 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true })); // Needed for forms
 
+const urlDatabase = {
+  '1234567890': 'https://www.google.com',
+};
 
-app.get('/', (req: Request, res: Response) => {
-  console.log('index')
+app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/shorten', (req: Request, res: Response) => {
+app.get('/shorten', (req, res) => {
   res.redirect('/');
 });
 
-
-
-app.post('/shorten', upload.single('htmlFile'), (req: Request, res: Response) => {
-  console.log('shorten');
+app.post('/shorten', upload.single('htmlFile'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded');
   }
@@ -45,26 +44,39 @@ app.post('/shorten', upload.single('htmlFile'), (req: Request, res: Response) =>
     const urls = extractUrls(htmlContent);
     console.log('urls', urls);
     
-    // Process URLs here (shorten them, etc.)
-    // const processedUrls = urls.map(url => ({
-    //   original: url,
-    //   shortened: `https://short.ly/${Math.random().toString(36).substr(2, 8)}` // Example shortening
-    // }));
+    const processedUrls = urls.map(originalUrl => {
+      const id = Math.random().toString(36).substring(2, 10);
+      const newUrl = `https://short.brighamandersen.com/${id}`;
+      urlDatabase[id] = originalUrl;
+      return { id, originalUrl, newUrl };
+    });
+    console.log('processedUrls', processedUrls);
     
     // Replace URLs in the HTML content
-    // let processedHtml = htmlContent;
-    // processedUrls.forEach(({ original, shortened }) => {
-    //   processedHtml = processedHtml.replace(new RegExp(original, 'g'), shortened);
-    // });
+    let processedHtml = htmlContent;
+    processedUrls.forEach(({ originalUrl, newUrl }) => {
+      processedHtml = processedHtml.replace(new RegExp(originalUrl, 'g'), newUrl);
+    });
     
     res.render('result', {
-      processedHtml: htmlContent,
+      processedHtml,
     });
     
   } catch (error) {
     console.error('Error processing file:', error);
     res.status(500).send('Error processing file');
   }
+});
+
+// --- REDIRECT SHORT LINKS ---
+app.get('/:id', (req, res) => {
+  const { id } = req.params;
+  if (!id) return res.status(404).send('URL not found');
+  
+  const originalUrl = urlDatabase[id];
+  if (!originalUrl) return res.status(404).send('URL not found');
+
+  res.redirect(originalUrl);
 });
 
 app.listen(PORT, () => {

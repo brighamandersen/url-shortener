@@ -1,4 +1,4 @@
-export function extractUrls(htmlContent: string) {
+export function extractUrls(htmlContent) {
   const urlRegex = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
   return htmlContent.match(urlRegex) || [];
 };
@@ -7,7 +7,7 @@ export function generateId() {
   return `${Math.random().toString(36).substr(2, 8)}`;
 };
 
-export function shortenUrlsInHtml(htmlContent: string) {
+export function shortenUrlsInHtml(htmlContent) {
   // Use a regex to find URLs in href/src attributes
   const urlRegex = /(?:href|src)=["'](https?:\/\/[^"']+)["']/gi;
   const replacements = [];
