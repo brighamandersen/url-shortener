@@ -1,11 +1,21 @@
 import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
+if (!process.env.DB_PASSWORD) {
+  console.error('Error: DB_PASSWORD environment variable is required');
+  console.error('Please create a .env file with DB_PASSWORD or set it in your environment');
+  process.exit(1);
+}
 
 // Database configuration
 const dbConfig = {
   user: process.env.DB_USER || 'url_shortener_user',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'url_shortener',
-  password: process.env.DB_PASSWORD || 'BMT7yTm@bsZ2*iByy4c@E3i%Ftw7#s',
+  password: process.env.DB_PASSWORD, // Required
   port: process.env.DB_PORT || 5432,
 };
 

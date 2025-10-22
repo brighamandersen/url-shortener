@@ -1,47 +1,5 @@
 # URL Shortener
 
-## Setup
-
-### Prerequisites
-- Node.js (v18 or higher)
-- PostgreSQL database
-
-### Installation
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Set up PostgreSQL database:
-```bash
-# Create database
-createdb url_shortener
-
-# Or using psql:
-psql -c "CREATE DATABASE url_shortener;"
-```
-
-3. Configure environment variables (optional - defaults will work for local development):
-```bash
-# Database Configuration
-export DB_HOST=localhost
-export DB_PORT=5432
-export DB_NAME=url_shortener
-export DB_USER=postgres
-export DB_PASSWORD=your_password
-
-# Application Configuration
-export NODE_ENV=development
-export PORT=3006
-```
-
-4. Start the application:
-```bash
-npm run dev
-```
-
-The application will automatically create the required database tables on startup.
 
 ## Deploying to Production
 
