@@ -10,13 +10,13 @@
       font-family: Arial, sans-serif;
       max-width: 800px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 10px;
       background-color: #f5f5f5;
     }
 
     .container {
       background-color: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
@@ -24,6 +24,139 @@
     h1 {
       color: #333;
       text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .example-container {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+
+    .example-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .example-content {
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .example-section {
+      flex: 1;
+    }
+
+    .example-section h4 {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .example-box {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      color: #666;
+      word-break: break-all;
+      min-height: 60px;
+      overflow-x: auto;
+    }
+
+    .form-container {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .file-input-container {
+      margin-bottom: 15px;
+    }
+
+    .file-input {
+      padding: 10px 12px;
+      border: 2px dashed #007bff;
+      border-radius: 6px;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .file-input:hover {
+      background-color: #e3f2fd;
+      border-color: #0056b3;
+    }
+
+    .submit-btn {
+      background-color: #6c757d;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: not-allowed;
+      transition: all 0.2s;
+      opacity: 0.6;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .submit-btn:enabled {
+      background-color: #007bff;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .submit-btn:enabled:hover {
+      background-color: #0056b3;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 30px;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .example-container {
+        padding: 20px;
+      }
+
+      .example-content {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .example-box {
+        font-size: 12px;
+        padding: 15px;
+        min-height: 80px;
+      }
+
+      .file-input {
+        width: 300px;
+      }
+
+      .submit-btn {
+        width: auto;
+      }
     }
   </style>
 </head>
@@ -36,53 +169,30 @@
       trackable.
     </p>
 
-    <div
-      style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
-      <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Example</h3>
-      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-        <div style="flex: 1; min-width: 300px;">
-          <h4 style="color: #dc3545; margin-bottom: 10px; font-size: 14px;">Before</h4>
-          <div
-            style="background-color: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 15px; font-family: monospace; font-size: 12px; line-height: 1.6; color: #666; word-break: break-all; min-height: 80px;">
-            https://d3k81ch9hvuctc.cloudfront.net/company/TPjHTH/images/f548bd9b-9a53-4ee5-b8ef-7092a444a60e.jpeg<br>
+    <div class="example-container">
+      <h3 class="example-title">Example</h3>
+      <div class="example-content">
+        <div class="example-section">
+          <h4 style="color: #dc3545;">Before</h4>
+          <div class="example-box">
+            https://d3k81ch9hvuctc.cloudfront.net/company/TPjHTH/images/f548bd9b-9a53-4ee5-b8ef-7092a444a60e.jpeg
           </div>
         </div>
-        <div style="flex: 1; min-width: 300px;">
-          <h4 style="color: #28a745; margin-bottom: 10px; font-size: 14px;">After</h4>
-          <div
-            style="background-color: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 15px; font-family: monospace; font-size: 12px; line-height: 1.6; color: #666; min-height: 80px;">
-            https://short.brighamandersen.com/abc123<br>
+        <div class="example-section">
+          <h4 style="color: #28a745;">After</h4>
+          <div class="example-box">
+            https://short.brighamandersen.com/abc123
           </div>
         </div>
       </div>
     </div>
-    <form action="/shorten" method="post" enctype="multipart/form-data" style="text-align: center; margin-top: 32px;">
-      <div style="margin-bottom: 20px;">
+    <form action="/shorten" method="post" enctype="multipart/form-data" class="form-container">
+      <div class="file-input-container">
         <label for="htmlFile" style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Upload HTML
           File:</label>
-        <input type="file" id="htmlFile" name="htmlFile" accept=".html,.htm" style="
-          padding: 12px 16px;
-          border: 2px dashed #007bff;
-          border-radius: 6px;
-          background-color: #f8f9fa;
-          cursor: pointer;
-          width: 300px;
-          font-size: 14px;
-          transition: all 0.2s ease;
-        " onmouseover="this.style.backgroundColor='#e3f2fd'; this.style.borderColor='#0056b3';"
-          onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#007bff';">
+        <input type="file" id="htmlFile" name="htmlFile" accept=".html,.htm" class="file-input">
       </div>
-      <button type="submit" id="submitBtn" disabled style="
-        background-color: #6c757d;
-        color: white;
-        padding: 12px 32px;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: not-allowed;
-        transition: all 0.2s;
-        opacity: 0.6;
-      ">Shorten URLs</button>
+      <button type="submit" id="submitBtn" disabled class="submit-btn">Shorten URLs</button>
     </form>
   </div>
 
@@ -94,15 +204,9 @@
       if (this.files && this.files.length > 0) {
         // File selected - enable button
         submitBtn.disabled = false;
-        submitBtn.style.backgroundColor = '#007bff';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.opacity = '1';
       } else {
         // No file selected - disable button
         submitBtn.disabled = true;
-        submitBtn.style.backgroundColor = '#6c757d';
-        submitBtn.style.cursor = 'not-allowed';
-        submitBtn.style.opacity = '0.6';
       }
     });
   </script>
