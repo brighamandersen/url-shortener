@@ -1,7 +1,8 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
-import multer from 'multer';
+import multer, { Multer } from 'multer';
 import { fileURLToPath } from 'url';
+import { extractUrls } from './utils';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,18 +19,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // Needed for forms
 
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   console.log('index')
   res.render('index');
 });
 
-app.get('/shorten', (req, res) => {
+app.get('/shorten', (req: Request, res: Response) => {
   res.redirect('/');
 });
 
 
 
-app.post('/shorten', upload.single('htmlFile'), (req, res) => {
+app.post('/shorten', upload.single('htmlFile'), (req: Request & { file?: Express.Multer.File }, res: Response) => {
   console.log('shorten');
   if (!req.file) {
     return res.status(400).send('No file uploaded');
@@ -38,11 +39,10 @@ app.post('/shorten', upload.single('htmlFile'), (req, res) => {
   try {
     // Get HTML content as string from memory buffer
     const htmlContent = req.file.buffer.toString('utf8');
-    console.log('htmlContent', htmlContent)
+    // console.log('htmlContent', htmlContent)
 
     // Extract URLs from HTML (you can use regex or a proper HTML parser)
-    const urlRegex = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
-    const urls = htmlContent.match(urlRegex) || [];
+    const urls = extractUrls(htmlContent);
     console.log('urls', urls);
     
     // Process URLs here (shorten them, etc.)
