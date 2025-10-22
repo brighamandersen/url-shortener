@@ -64,7 +64,6 @@ app.post('/shorten', upload.single('htmlFile'), async (req, res) => {
       
       return { id, originalUrl, newUrl };
     });
-    console.log('processedUrls', processedUrls);
     
     // Replace URLs in the HTML content
     let processedHtml = htmlContent;
