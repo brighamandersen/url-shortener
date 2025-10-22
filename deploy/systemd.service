@@ -1,0 +1,14 @@
+[Unit]
+Description=short
+After=network.target
+
+[Service]
+User=brig
+Group=brig
+WorkingDirectory=/home/brig/code/url-shortener
+ExecStart=/home/brig/.nvm/versions/node/v20.11.0/bin/node /home/brig/code/url-shortener/app.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
