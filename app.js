@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import { extractUrls } from './utils.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3006;
 
 const upload = multer({ 
   storage: multer.memoryStorage() // Store in memory instead of disk
