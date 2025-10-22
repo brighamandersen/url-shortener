@@ -4,7 +4,7 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { extractUrls } from './utils.js';
 import { initializeDatabase, closeDatabase } from './db-connection.js';
-import { saveUrl, saveUrlsBatch, getUrlById } from './url-operations.js';
+import { saveUrlsBatch, getUrlById } from './url-operations.js';
 
 
 const app = express();
@@ -31,11 +31,11 @@ initializeDatabase().catch(err => {
   process.exit(1);
 });
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.render('index');
 });
 
-app.get('/shorten', (req, res) => {
+app.get('/shorten', (_req, res) => {
   res.redirect('/');
 });
 
@@ -47,11 +47,9 @@ app.post('/shorten', upload.single('htmlFile'), async (req, res) => {
   try {
     // Get HTML content as string from memory buffer
     const htmlContent = req.file.buffer.toString('utf8');
-    // console.log('htmlContent', htmlContent)
 
     // Extract URLs from HTML (you can use regex or a proper HTML parser)
     const urls = extractUrls(htmlContent);
-    console.log('urls', urls);
     
     // Process all URLs in a single batch operation (much faster!)
     const ids = await saveUrlsBatch(urls);
