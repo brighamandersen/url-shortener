@@ -17,17 +17,17 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true })); // Needed for forms
 
-let processedHtmlContent = ''; // FIXME: Temproary to get things working, then need to make scalable
 
 app.get('/', (req, res) => {
   console.log('index')
   res.render('index');
 });
 
-app.get('/result', (req, res) => {
-  console.log('result')
-  res.render('result', { processedHtml: processedHtmlContent });
+app.get('/shorten', (req, res) => {
+  res.redirect('/');
 });
+
+
 
 app.post('/shorten', upload.single('htmlFile'), (req, res) => {
   console.log('shorten');
@@ -35,42 +35,36 @@ app.post('/shorten', upload.single('htmlFile'), (req, res) => {
     return res.status(400).send('No file uploaded');
   }
 
-  // console.log('req.file', req.file)
-
   try {
     // Get HTML content as string from memory buffer
     const htmlContent = req.file.buffer.toString('utf8');
     console.log('htmlContent', htmlContent)
 
-    processedHtmlContent = htmlContent;
+    // Extract URLs from HTML (you can use regex or a proper HTML parser)
+    const urlRegex = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
+    const urls = htmlContent.match(urlRegex) || [];
+    console.log('urls', urls);
     
-  //   // Extract URLs from HTML (you can use regex or a proper HTML parser)
-  //   const urlRegex = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
-  //   const urls = htmlContent.match(urlRegex) || [];
+    // Process URLs here (shorten them, etc.)
+    // const processedUrls = urls.map(url => ({
+    //   original: url,
+    //   shortened: `https://short.ly/${Math.random().toString(36).substr(2, 8)}` // Example shortening
+    // }));
     
-  //   console.log('Found URLs:', urls);
+    // Replace URLs in the HTML content
+    // let processedHtml = htmlContent;
+    // processedUrls.forEach(({ original, shortened }) => {
+    //   processedHtml = processedHtml.replace(new RegExp(original, 'g'), shortened);
+    // });
     
-  //   // Process URLs here (shorten them, etc.)
-  //   const processedUrls = urls.map(url => ({
-  //     original: url,
-  //     shortened: `https://short.ly/${Math.random().toString(36).substr(2, 8)}` // Example shortening
-  //   }));
-    
-  //   // Return the results
-  //   res.json({
-  //     message: 'URLs extracted and processed',
-  //     urls: processedUrls
-  //   });
+    res.render('result', {
+      processedHtml: htmlContent,
+    });
     
   } catch (error) {
     console.error('Error processing file:', error);
     res.status(500).send('Error processing file');
   }
-
-  // console.log('req', req)
-  // console.log('req.body', req.body)
-  // console.log('req.files', req.files)
-  res.redirect('/result');
 });
 
 app.listen(PORT, () => {
