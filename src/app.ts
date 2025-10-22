@@ -1,6 +1,6 @@
-import express, { Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import path from 'path';
-import multer, { Multer } from 'multer';
+import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { extractUrls } from './utils';
 
@@ -30,7 +30,7 @@ app.get('/shorten', (req: Request, res: Response) => {
 
 
 
-app.post('/shorten', upload.single('htmlFile'), (req: Request & { file?: Express.Multer.File }, res: Response) => {
+app.post('/shorten', upload.single('htmlFile'), (req: Request, res: Response) => {
   console.log('shorten');
   if (!req.file) {
     return res.status(400).send('No file uploaded');
