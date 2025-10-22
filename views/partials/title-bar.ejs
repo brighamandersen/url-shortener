@@ -2,7 +2,7 @@
   .title-bar {
     background-color: #007bff;
     color: white;
-    padding: 15px 20px;
+    padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
     text-align: center;
@@ -23,20 +23,22 @@
   .title-bar-link:active {
     color: white;
     text-decoration: none;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     cursor: pointer;
   }
 
-  @media (min-width: 768px) {
-    .title-bar {
-      padding: 20px;
-      font-size: 1.8rem;
-    }
+  .title-bar-icon {
+    width: 72px;
+    height: 72px;
   }
 </style>
 
 <div class="title-bar">
   <a href="/" class="title-bar-content title-bar-link">
-    URL Shortener
+    <img src="/icon.png" alt="URL Shortener" class="title-bar-icon">
+    <span>URL Shortener</span>
   </a>
 </div>
