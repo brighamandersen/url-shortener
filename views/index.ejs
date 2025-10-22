@@ -116,26 +116,20 @@
     }
 
     .submit-btn {
-      background-color: #6c757d;
+      background-color: #007bff;
       color: white;
       padding: 12px 24px;
       border: none;
       border-radius: 4px;
       font-size: 16px;
-      cursor: not-allowed;
+      cursor: pointer;
       transition: all 0.2s;
-      opacity: 0.6;
+      opacity: 1;
       width: 100%;
       max-width: 200px;
     }
 
-    .submit-btn:enabled {
-      background-color: #007bff;
-      cursor: pointer;
-      opacity: 1;
-    }
-
-    .submit-btn:enabled:hover {
+    .submit-btn:hover {
       background-color: #0056b3;
     }
 
@@ -214,7 +208,7 @@
           File:</label>
         <input type="file" id="htmlFile" name="htmlFile" accept=".html,.htm" class="file-input">
       </div>
-      <button type="submit" id="submitBtn" disabled class="submit-btn">Shorten URLs</button>
+      <button type="submit" id="submitBtn" class="submit-btn">Shorten URLs</button>
     </form>
   </div>
 
@@ -222,13 +216,11 @@
     const fileInput = document.getElementById('htmlFile');
     const submitBtn = document.getElementById('submitBtn');
 
-    fileInput.addEventListener('change', function () {
-      if (this.files && this.files.length > 0) {
-        // File selected - enable button
-        submitBtn.disabled = false;
-      } else {
-        // No file selected - disable button
-        submitBtn.disabled = true;
+    submitBtn.addEventListener('click', function (e) {
+      if (!fileInput.files || fileInput.files.length === 0) {
+        e.preventDefault();
+        alert('Please choose an HTML file to upload first.');
+        return false;
       }
     });
   </script>
