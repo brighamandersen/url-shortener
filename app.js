@@ -4,7 +4,7 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { extractUrls } from './utils.js';
 import { initializeDatabase, closeDatabase } from './db-connection.js';
-import { saveUrlsBatch, getUrlById } from './url-operations.js';
+import { saveUrl, getUrlById } from './url-operations.js';
 
 
 const app = express();
@@ -51,26 +51,17 @@ app.post('/shorten', upload.single('htmlFile'), async (req, res) => {
     // Get HTML content as string from memory buffer
     const htmlContent = req.file.buffer.toString('utf8');
 
-    // Extract URLs from HTML (you can use regex or a proper HTML parser)
     const urls = extractUrls(htmlContent);
     
-    // Process all URLs in a single batch operation (much faster!)
-    const ids = await saveUrlsBatch(urls);
-    
-    const processedUrls = urls.map((originalUrl, index) => {
-      const id = ids[index];
+    let processedHtml = htmlContent;
+    for (const originalUrl of urls) {
+      const id = await saveUrl(originalUrl);
       const newUrl = `${baseUrl}/${id}`;
       
-      return { id, originalUrl, newUrl };
-    });
-    
-    // Replace URLs in the HTML content
-    let processedHtml = htmlContent;
-    processedUrls.forEach(({ originalUrl, newUrl }) => {
       // Escape special regex characters in the URL
       const escapedUrl = originalUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       processedHtml = processedHtml.replace(new RegExp(escapedUrl, 'g'), newUrl);
-    });
+    }
     
     res.render('result', {
       processedHtml,
