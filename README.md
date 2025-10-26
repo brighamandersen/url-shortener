@@ -15,6 +15,10 @@ cd path/to/repo
 ./deploy/deploy.sh
 ```
 
+## Architecture
+
+![Architecture Diagram](./README-architecture-diagram.jpg)
+
 ## Decisions
 
 * **Backend: Node.js with Express**
