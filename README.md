@@ -17,6 +17,12 @@ cd path/to/repo
 ./deploy/deploy.sh
 ```
 
+## Inspect Database in PostgreSQL pgAdmin
+
+```bash
+psql -d url_shortener_db
+```
+
 ## Specifications
 
 See [specifications file](./README-specifications.md) for the full list of specifications for the project.
