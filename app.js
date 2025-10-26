@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3006;
 const PROD_BASE_URL = 'https://short.brighamandersen.com';
 const DEV_BASE_URL = `http://localhost:${PORT}`;
 const baseUrl = process.env.NODE_ENV === 'production' ? PROD_BASE_URL : DEV_BASE_URL;
-
 const upload = multer({ 
   storage: multer.memoryStorage() // Store in memory instead of disk
 });
@@ -56,7 +55,6 @@ app.post('/shorten', upload.single('htmlFile'), async (req, res) => {
     for (const originalUrl of urls) {
       const id = await saveUrl(originalUrl);
       const newUrl = `${baseUrl}/${id}`;
-      
       // Escape special regex characters in the URL
       const escapedUrl = originalUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       processedHtml = processedHtml.replace(new RegExp(escapedUrl, 'g'), newUrl);
@@ -89,7 +87,7 @@ app.get('/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on ${baseUrl}`);
 });
 
 process.on('SIGINT', async () => {
