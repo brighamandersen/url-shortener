@@ -1,5 +1,12 @@
 # HTML URL Shortener
 
+Shorten all URLs within an HTML document.
+
+![Demo Screenshot 1](./README-demo-screenshot1.png)
+
+![Demo Screenshot 2](./README-demo-screenshot2.png)
+
+To test this out on your own, go to [https://short.brighamandersen.com](https://short.brighamandersen.com) and then use [`example.html`](./example.html) as input.
 
 ## Deploying to Production
 
