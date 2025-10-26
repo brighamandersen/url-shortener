@@ -17,6 +17,10 @@ cd path/to/repo
 ./deploy/deploy.sh
 ```
 
+## Specifications
+
+See [specifications file](./README-specifications.md) for the full list of specifications for the project.
+
 ## Architecture
 
 ![Architecture Diagram](./README-architecture-diagram.jpg)
