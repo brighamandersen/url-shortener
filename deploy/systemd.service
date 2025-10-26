@@ -5,6 +5,7 @@ After=network.target
 [Service]
 User=brig
 Group=brig
+Environment=NODE_ENV=production
 WorkingDirectory=/home/brig/code/url-shortener
 ExecStart=/home/brig/.nvm/versions/node/v20.11.0/bin/node /home/brig/code/url-shortener/app.js
 Restart=always
